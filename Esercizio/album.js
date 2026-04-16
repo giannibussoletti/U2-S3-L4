@@ -35,7 +35,10 @@ const singleCard = function (imgConst, titleConst, descConst, idImage, div, sear
   buttonView.setAttribute("type", "button")
   buttonView.setAttribute("onclick", "detailsPage()")
 
-  buttonView.setAttribute("href", `./details.html?query=${searchterm}&id=${idImage}`)
+  buttonView.setAttribute(
+    "href",
+    `./details.html?id=${idImage}&imgurl=${imgConst}&title=${titleConst}`,
+  )
   buttonView.innerText = "View"
 
   const buttonHide = document.createElement("a")
