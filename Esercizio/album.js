@@ -1,8 +1,6 @@
 const mainRow = document.getElementById("photo-gallery")
 
-const term = document.querySelector("#search-group input").value
-
-const singleCard = function (imgConst, titleConst, descConst, idImage, div, searchterm) {
+const singleCard = function (imgConst, titleConst, descConst, idImage) {
   const divCol = document.createElement("div")
   divCol.classList.add("col-md-4", "col-lg-3")
 
@@ -35,10 +33,7 @@ const singleCard = function (imgConst, titleConst, descConst, idImage, div, sear
   buttonView.setAttribute("type", "button")
   buttonView.setAttribute("onclick", "detailsPage()")
 
-  buttonView.setAttribute(
-    "href",
-    `./details.html?id=${idImage}&imgurl=${imgConst}&title=${titleConst}`,
-  )
+  buttonView.setAttribute("href", `./details.html?id=${idImage}`)
   buttonView.innerText = "View"
 
   const buttonHide = document.createElement("a")
@@ -50,7 +45,7 @@ const singleCard = function (imgConst, titleConst, descConst, idImage, div, sear
   smallSection.classList.add("text-muted")
   smallSection.innerText = idImage
 
-  div.appendChild(divCol)
+  mainRow.appendChild(divCol)
   divCol.appendChild(divCard)
   divCard.appendChild(img)
   divCard.appendChild(divBody)
@@ -66,7 +61,7 @@ const mainUrl = "https://api.pexels.com/v1/search?query="
 
 const loadPrimary = function () {
   fetch(`${mainUrl}hamsters`, {
-    Headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
+    headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
   })
     .then((response) => {
       if (response.ok) {
@@ -90,12 +85,14 @@ const loadPrimary = function () {
         )
       })
     })
-    .catch(console.log("Errore nel contattare il server"))
+    .catch(() => {
+      console.log("Errore nel contattare il server")
+    })
 }
 
 const loadSecondary = function () {
   fetch(`${mainUrl}tiger`, {
-    Headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
+    headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
   })
     .then((response) => {
       if (response.ok) {
@@ -117,18 +114,21 @@ const loadSecondary = function () {
         )
       })
     })
-    .catch(console.log("Errore nel contattare il server"))
+    .catch(() => {
+      console.log("Errore nel contattare il server")
+    })
 }
 const searchFunc = function () {
+  const term = document.querySelector("#search-group input").value
   mainRow.innerHTML = ""
   fetch(mainUrl + term, {
-    Headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
+    headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
   })
     .then((response) => {
       if (response.ok) {
         return response.json()
       } else {
-        throw new Error("Errore n°: ", response.status)
+        throw new Error("Errore n: ", response.status)
       }
     })
     .then((data) => {
@@ -137,5 +137,7 @@ const searchFunc = function () {
         singleCard(info.src.medium, info.photographer, info.photographer_id, info.id, mainRow)
       })
     })
-    .catch(console.log("Errore nel contattare il server"))
+    .catch(() => {
+      console.log("Errore nel contattare il server")
+    })
 }
