@@ -1,7 +1,7 @@
-const mainRow = document.getElementById("photo-gallery")
-
-const term = document.querySelector("#search-group input").value
-
+const detailsRow = document.getElementById("details-photo")
+const allTheParameters = new URLSearchParams(location.search)
+const imageId = allTheParameters.get("id")
+const imagequery = allTheParameters.get("query")
 const singleCard = function (imgConst, titleConst, descConst, idImage, div, searchterm) {
   const divCol = document.createElement("div")
   divCol.classList.add("col-md-4", "col-lg-3")
@@ -59,42 +59,14 @@ const singleCard = function (imgConst, titleConst, descConst, idImage, div, sear
   divBtnGroup.appendChild(buttonHide)
   divFlex.appendChild(smallSection)
 }
-const mainUrl = "https://api.pexels.com/v1/search?query="
+const mainUrl = "https://api.pexels.com/v1/search/?"
 
-const loadPrimary = function () {
-  fetch(`${mainUrl}hamsters`, {
+const detailsPage = function () {
+  fetch(mainUrl + "id=" + imageId, {
     Headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
   })
     .then((response) => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error(response.status)
-      }
-    })
-    .then((data) => {
-      mainRow.innerHTML = ""
-      console.log(data.photos[1])
-
-      data.photos.forEach((info) => {
-        singleCard(
-          info.src.medium,
-          info.photographer,
-          info.photographer_id,
-          info.id,
-          mainRow,
-          "hamsters",
-        )
-      })
-    })
-    .catch(console.log("Errore nel contattare il server"))
-}
-
-const loadSecondary = function () {
-  fetch(`${mainUrl}tiger`, {
-    Headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
-  })
-    .then((response) => {
+      console.log(response)
       if (response.ok) {
         return response.json()
       } else {
@@ -102,37 +74,19 @@ const loadSecondary = function () {
       }
     })
     .then((data) => {
-      mainRow.innerHTML = ""
-      data.photos.forEach((info) => {
-        singleCard(
-          info.src.medium,
-          info.photographer,
-          info.photographer_id,
-          info.id,
-          mainRow,
-          "tiger",
-        )
-      })
+      detailsRow.innerHTML = ""
+      console.log(data)
+      //   data.photos.forEach((info) => {
+      //     singleCard(
+      //       info.src.medium,
+      //       info.photographer,
+      //       info.photographer_id,
+      //       info.id,
+      //       detailsRow,
+      //       imagequery,
+      //     )
+      //   })
     })
     .catch(console.log("Errore nel contattare il server"))
 }
-const searchFunc = function () {
-  mainRow.innerHTML = ""
-  fetch(mainUrl + term, {
-    Headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error("Errore n°: ", response.status)
-      }
-    })
-    .then((data) => {
-      mainRow.innerHTML = ""
-      data.photos.forEach((info) => {
-        singleCard(info.src.medium, info.photographer, info.photographer_id, info.id, mainRow)
-      })
-    })
-    .catch(console.log("Errore nel contattare il server"))
-}
+detailsPage()
