@@ -1,5 +1,5 @@
-urlApi = "https://api.pexels.com/v1/search?query="
-apiKey = "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z"
+const urlApi = "https://api.pexels.com/v1/search?query="
+const apiKey = "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z"
 
 const searchFetch = function (element) {
   fetch(urlApi + element, {
@@ -29,6 +29,10 @@ const searchFetch = function (element) {
         small9mins[i].innerText = photo.id
         btnHide[i].innerText = "Hide"
         const hideCard = btnHide[i].closest(".col-md-4")
+        btnView[i].addEventListener("click", () =>
+          window.location.replace(`./details.html?id=${photo.id}`),
+        )
+
         btnHide[i].addEventListener("click", () => {
           hideCard.classList.add("invisible")
         })
