@@ -7,7 +7,7 @@ const imgTitle = allTheParameters.get("title")
 
 const singleCard = function (imgConst, titleConst, descConst, idImage, div, searchterm) {
   const divCol = document.createElement("div")
-  divCol.classList.add("col-md-4", "col-lg-3")
+  divCol.classList.add("col-12")
 
   const divCard = document.createElement("div")
   divCard.classList.add("card", "mb-4", "shadow-sm")
