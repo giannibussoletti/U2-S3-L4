@@ -1,7 +1,10 @@
 const detailsRow = document.getElementById("details-photo")
 const allTheParameters = new URLSearchParams(location.search)
 const imageId = allTheParameters.get("id")
-const imagequery = allTheParameters.get("query")
+const imageQuery = allTheParameters.get("query")
+const imageUrl = allTheParameters.get("imgurl")
+const imgTitle = allTheParameters.get("title")
+
 const singleCard = function (imgConst, titleConst, descConst, idImage, div, searchterm) {
   const divCol = document.createElement("div")
   divCol.classList.add("col-md-4", "col-lg-3")
@@ -59,34 +62,5 @@ const singleCard = function (imgConst, titleConst, descConst, idImage, div, sear
   divBtnGroup.appendChild(buttonHide)
   divFlex.appendChild(smallSection)
 }
-const mainUrl = "https://api.pexels.com/v1/search/?"
 
-const detailsPage = function () {
-  fetch(mainUrl + "id=" + imageId, {
-    Headers: { Authorization: "W1TyRJMryxcJFDeHrtgmdMSNOGERVIaDw1Uz3LjWS9E7zezyukzQc25Z" },
-  })
-    .then((response) => {
-      console.log(response)
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error("Errore n°: ", response.status)
-      }
-    })
-    .then((data) => {
-      detailsRow.innerHTML = ""
-      console.log(data)
-      //   data.photos.forEach((info) => {
-      //     singleCard(
-      //       info.src.medium,
-      //       info.photographer,
-      //       info.photographer_id,
-      //       info.id,
-      //       detailsRow,
-      //       imagequery,
-      //     )
-      //   })
-    })
-    .catch(console.log("Errore nel contattare il server"))
-}
-detailsPage()
+singleCard(imageUrl, imgTitle, imageId, imageId, detailsRow, imageQuery)
