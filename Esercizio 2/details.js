@@ -22,7 +22,7 @@ const searchFetch = function (element) {
       const btnGoBack = document.querySelector(".card button:first-child")
       console.log(img, title, description, small9mins, btnGoBack, data)
 
-      img.setAttribute("src", data.src.original)
+      img.setAttribute("src", data.src.large)
       title.innerText = data.photographer
       description.innerText = data.alt
       small9mins.innerText = data.id
