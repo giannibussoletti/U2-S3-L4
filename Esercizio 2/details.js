@@ -20,8 +20,10 @@ const searchFetch = function (element) {
       const description = document.querySelector(".card p.card-text")
       const small9mins = document.querySelector("small")
       const btnGoBack = document.querySelector(".card button:first-child")
-      console.log(img, title, description, small9mins, btnGoBack, data)
 
+      document.querySelector("body").style.backgroundColor = data.avg_color
+      document.querySelector(".album").style.backgroundColor = data.avg_color
+      document.querySelector(".album").classList.remove("bg-light")
       img.setAttribute("src", data.src.large)
       title.innerText = data.photographer
       description.innerText = data.alt
